@@ -477,7 +477,7 @@ class WhatsAppService
                "📋 *PTSP Kemenag Nganjuk*\n\n" .
                "📝 *Detail Kunjungan:*\n" .
                "📍 *Instansi Asal:* {$guest->instansi}\n" .
-               "🎯 *Bidang:* {$guest->bidangInfo->nama}\n" .
+               "🎯 *Bidang Tujuan:* {$guest->bidangInfo->nama}\n" .
                "📍 *Keperluan:* {$guest->keperluan}\n" .
                "⏰ *Waktu:* {$checkInTime} WIB\n\n" .
                "🚪 *Klik link di bawah ini jika sudah selesai:*\n" .
