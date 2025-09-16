@@ -374,6 +374,16 @@ return [
     */
 
     'plugins' => [
+        'HttpsHelper' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/https-helper.js',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => false,
             'files' => [

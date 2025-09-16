@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="PTSP Kemenag Nganjuk">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Buku Tamu PTSP Kemenag Nganjuk')</title>
 
     <!-- Bootstrap CSS -->
@@ -270,6 +271,10 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- HTTPS Helper -->
+    <script src="{{ asset('js/https-helper.js') }}"></script>
 
     @yield('scripts')
 </body>

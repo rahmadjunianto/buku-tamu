@@ -197,7 +197,13 @@
 function refreshStatus() {
     $('#service-status, #device-status').html('<div class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</div>');
 
-    $.get('{{ route("admin.whatsapp.test-connection") }}')
+    // Ensure HTTPS URL for AJAX request
+    let url = '{{ route("admin.whatsapp.test-connection") }}';
+    if (window.location.protocol === 'https:' && url.startsWith('http:')) {
+        url = url.replace('http:', 'https:');
+    }
+
+    $.get(url)
         .done(function(data) {
             if (data.success) {
                 updateServiceStatus(data.service);
@@ -256,7 +262,13 @@ $('#test-message-form').on('submit', function(e) {
 
     submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Sending...').prop('disabled', true);
 
-    $.post('{{ route("admin.whatsapp.test-message") }}', $(this).serialize())
+    // Ensure HTTPS URL for AJAX request
+    let url = '{{ route("admin.whatsapp.test-message") }}';
+    if (window.location.protocol === 'https:' && url.startsWith('http:')) {
+        url = url.replace('http:', 'https:');
+    }
+
+    $.post(url, $(this).serialize())
         .done(function(data) {
             if (data.success) {
                 $('#test-result').html(`
