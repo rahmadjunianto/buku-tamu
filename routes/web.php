@@ -34,4 +34,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     // Reports routes
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/export', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
+
+    // WhatsApp routes
+    Route::get('/whatsapp', [App\Http\Controllers\Admin\WhatsAppController::class, 'index'])->name('admin.whatsapp.index');
+    Route::get('/whatsapp/test-connection', [App\Http\Controllers\Admin\WhatsAppController::class, 'testConnection'])->name('admin.whatsapp.test-connection');
+    Route::post('/whatsapp/test-message', [App\Http\Controllers\Admin\WhatsAppController::class, 'testMessage'])->name('admin.whatsapp.test-message');
 });

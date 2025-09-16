@@ -331,6 +331,12 @@ return [
             'route' => 'admin.reports.index',
             'icon' => 'fas fa-fw fa-chart-line',
         ],
+        ['header' => 'NOTIFIKASI'],
+        [
+            'text' => 'WhatsApp',
+            'route' => 'admin.whatsapp.index',
+            'icon' => 'fab fa-fw fa-whatsapp',
+        ],
     ],
 
     /*
