@@ -367,4 +367,133 @@ class WhatsAppService
             ];
         }
     }
+
+    /**
+     * Send admin notification with checkout link when guest checks in
+     */
+    public function sendAdminNotificationWithCheckout($guest)
+    {
+        try {
+            // Prepare the message with checkout link
+            $message = $this->formatCheckInMessageWithCheckout($guest);
+
+            // Send to admin/security phone number
+            $adminPhone = config('whatsapp.admin_phone', '628123456789');
+            $adminPhone = $this->formatPhoneNumber($adminPhone);
+
+            $result = $this->sendMessage($adminPhone, $message);
+
+            Log::info('WhatsApp admin notification with checkout sent', [
+                'guest_name' => $guest->nama,
+                'guest_id' => $guest->id,
+                'admin_phone' => $adminPhone,
+                'success' => $result
+            ]);
+
+            return $result;
+        } catch (\Exception $e) {
+            Log::error('Failed to send WhatsApp admin notification with checkout', [
+                'guest_name' => $guest->nama,
+                'guest_id' => $guest->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return false;
+        }
+    }
+
+    /**
+     * Send guest confirmation with checkout link
+     */
+    public function sendGuestConfirmationWithCheckout($guest)
+    {
+        try {
+            // Only send if guest provided phone number
+            if (empty($guest->telepon)) {
+                return false;
+            }
+
+            // Clean and format phone number
+            $guestPhone = $this->formatPhoneNumber($guest->telepon);
+
+            // Prepare confirmation message with checkout link
+            $message = $this->formatConfirmationMessageWithCheckout($guest);
+
+            $result = $this->sendMessage($guestPhone, $message);
+
+            Log::info('WhatsApp guest confirmation with checkout sent', [
+                'guest_name' => $guest->nama,
+                'guest_id' => $guest->id,
+                'guest_phone' => $guestPhone,
+                'success' => $result
+            ]);
+
+            return $result;
+        } catch (\Exception $e) {
+            Log::error('Failed to send WhatsApp guest confirmation with checkout', [
+                'guest_name' => $guest->nama,
+                'guest_id' => $guest->id,
+                'error' => $e->getMessage()
+            ]);
+
+            return false;
+        }
+    }
+
+    /**
+     * Format check-in notification message with checkout link for admin/security
+     */
+    private function formatCheckInMessageWithCheckout($guest)
+    {
+        $checkInTime = $guest->check_in_at->format('d F Y, H:i');
+        $checkoutUrl = url("/admin/guestbook/{$guest->id}/checkout");
+
+        return "🔔 *NOTIFIKASI TAMU BARU*\n\n" .
+               "📋 *PTSP Kemenag Nganjuk*\n" .
+               "═══════════════════════\n\n" .
+               "👤 *Nama:* {$guest->nama}\n" .
+               "📞 *Telepon:* " . ($guest->telepon ?: '-') . "\n" .
+               "🏢 *Instansi:* " . ($guest->instansi ?: '-') . "\n" .
+               "🎯 *Bidang Tujuan:* {$guest->bidangInfo->nama}\n" .
+               "📝 *Keperluan:* {$guest->keperluan}\n" .
+               "⏰ *Check-in:* {$checkInTime} WIB\n\n" .
+               "🔗 *Checkout Link:*\n" .
+               "{$checkoutUrl}\n\n" .
+               "═══════════════════════\n" .
+               "_Pesan otomatis dari sistem buku tamu_";
+    }
+
+    /**
+     * Format confirmation message with checkout link for guest
+     */
+    private function formatConfirmationMessageWithCheckout($guest)
+    {
+        $checkInTime = $guest->check_in_at->format('d F Y, H:i');
+        $checkoutUrl = url("/checkout/{$guest->id}");
+
+        return "✅ *KONFIRMASI CHECK-IN*\n\n" .
+               "Halo *{$guest->nama}*,\n\n" .
+               "Terima kasih telah melakukan check-in di:\n" .
+               "📋 *PTSP Kemenag Nganjuk*\n\n" .
+               "📝 *Detail Kunjungan:*\n" .
+               "🎯 *Bidang:* {$guest->bidangInfo->nama}\n" .
+               "📍 *Keperluan:* {$guest->keperluan}\n" .
+               "⏰ *Waktu:* {$checkInTime} WIB\n\n" .
+               "Silakan menunggu untuk dilayani sesuai antrian.\n\n" .
+               "🚪 *Klik link di bawah ini jika sudah selesai:*\n" .
+               "{$checkoutUrl}\n\n" .
+               "═══════════════════════\n" .
+               "_Pesan otomatis dari sistem buku tamu_";
+    }
+
+    /**
+     * Test method untuk melihat format pesan (public untuk testing)
+     */
+    public function testMessageFormat($guest)
+    {
+        return [
+            'admin' => $this->formatCheckInMessageWithCheckout($guest),
+            'guest' => $this->formatConfirmationMessageWithCheckout($guest)
+        ];
+    }
 }

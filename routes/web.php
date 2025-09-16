@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('guest.form');
 Route::post('/guest/store', [App\Http\Controllers\GuestController::class, 'store'])->name('guest.store');
 Route::get('/guest/success/{id}', [App\Http\Controllers\GuestController::class, 'success'])->name('guest.success');
+Route::get('/checkout/{id}', [App\Http\Controllers\GuestController::class, 'checkout'])->name('guest.checkout');
 
 Auth::routes();
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Guestbook;
 use App\Models\Bidang;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class GuestbookController extends Controller
 {
@@ -56,7 +58,7 @@ class GuestbookController extends Controller
             'bidang' => 'required|exists:bidang,id',
         ]);
 
-        Guestbook::create([
+        $guest = Guestbook::create([
             'nama' => $request->nama,
             'telepon' => $request->telepon,
             'instansi' => $request->instansi,
@@ -65,6 +67,34 @@ class GuestbookController extends Controller
             'check_in_at' => now(),
         ]);
 
+
+        // Load bidang relationship
+        $guest->load('bidangInfo');
+
+        // Send WhatsApp notifications if enabled
+        if (config('whatsapp.enabled', true)) {
+            try {
+                $whatsAppService = new WhatsAppService();
+
+                // // Send admin notification
+                // $whatsAppService->sendAdminNotificationWithCheckout($guest);
+
+                // Send guest confirmation if phone number provided
+                if (!empty($guest->telepon)) {
+                    $whatsAppService->sendGuestConfirmationWithCheckout($guest);
+                }
+
+                Log::info('WhatsApp notifications sent for guest check-in', [
+                    'guest_id' => $guest->id,
+                    'guest_name' => $guest->nama
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Failed to send WhatsApp notifications', [
+                    'guest_id' => $guest->id,
+                    'error' => $e->getMessage()
+                ]);
+            }
+        }
         return redirect()->route('admin.guestbook.index')
             ->with('success', 'Tamu berhasil didaftarkan');
     }
