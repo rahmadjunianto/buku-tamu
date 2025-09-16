@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Guest Routes (Frontend)
+Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('guest.form');
+Route::post('/guest/store', [App\Http\Controllers\GuestController::class, 'store'])->name('guest.store');
+Route::get('/guest/success/{id}', [App\Http\Controllers\GuestController::class, 'success'])->name('guest.success');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Admin Routes
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+    // Guestbook routes
+    Route::resource('guestbook', App\Http\Controllers\Admin\GuestbookController::class)->names('admin.guestbook');
+    Route::post('guestbook/{id}/checkout', [App\Http\Controllers\Admin\GuestbookController::class, 'checkout'])->name('admin.guestbook.checkout');
+
+    // Reports routes
+    Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
+    Route::get('/reports/export', [App\Http\Controllers\Admin\ReportController::class, 'export'])->name('admin.reports.export');
 });
