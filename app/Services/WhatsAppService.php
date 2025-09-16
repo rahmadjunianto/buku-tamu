@@ -476,6 +476,7 @@ class WhatsAppService
                "Terima kasih telah melakukan check-in di:\n" .
                "📋 *PTSP Kemenag Nganjuk*\n\n" .
                "📝 *Detail Kunjungan:*\n" .
+               "📍 *Instansi Asal:* {$guest->instansi}\n" .
                "🎯 *Bidang:* {$guest->bidangInfo->nama}\n" .
                "📍 *Keperluan:* {$guest->keperluan}\n" .
                "⏰ *Waktu:* {$checkInTime} WIB\n\n" .

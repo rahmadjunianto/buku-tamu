@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Auth;
 // Guest Routes (Frontend)
 Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('guest.form');
 Route::post('/guest/store', [App\Http\Controllers\GuestController::class, 'store'])->name('guest.store');
-Route::get('/guest/success/{id}', [App\Http\Controllers\GuestController::class, 'success'])->name('guest.success');
-Route::get('/checkout/{id}', [App\Http\Controllers\GuestController::class, 'checkout'])->name('guest.checkout');
+Route::get('/guest/success/{id}', [App\Http\Controllers\GuestController::class, 'success'])->name('guest.success')
+    ->where('id', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+Route::get('/checkout/{id}', [App\Http\Controllers\GuestController::class, 'checkout'])->name('guest.checkout')
+    ->where('id', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
 Auth::routes();
 
@@ -30,7 +32,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Guestbook routes
     Route::resource('guestbook', App\Http\Controllers\Admin\GuestbookController::class)->names('admin.guestbook');
-    Route::post('guestbook/{id}/checkout', [App\Http\Controllers\Admin\GuestbookController::class, 'checkout'])->name('admin.guestbook.checkout');
+    Route::post('guestbook/{id}/checkout', [App\Http\Controllers\Admin\GuestbookController::class, 'checkout'])->name('admin.guestbook.checkout')
+        ->where('id', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
     // Reports routes
     Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('admin.reports.index');
