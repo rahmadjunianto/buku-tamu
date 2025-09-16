@@ -71,7 +71,7 @@ class GuestController extends Controller
         try {
             $guest = Guestbook::with('bidangInfo')->findOrFail($id);
             Log::info('Guest found:', $guest->toArray());
-            return view('guest.success-inline', compact('guest'));
+            return view('guest.success', compact('guest'));
         } catch (\Exception $e) {
             Log::error('Error in success page: ' . $e->getMessage());
             return response('Error: ' . $e->getMessage(), 500);

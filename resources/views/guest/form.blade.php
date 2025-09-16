@@ -3,195 +3,81 @@
 @section('title', 'Buku Tamu PTSP Kemenag Nganjuk')
 
 @section('content')
-<div class="container-fluid p-0">
-    <!-- Header PTSP -->
-    <div class="ptsp-header">
-        <div class="container">
-            <div class="row align-items-center py-3">
-                <div class="col-auto">
-                    <img src="logo-kemenag.png"
-                        alt="Logo Kemenag"
-                        class="logo-kemenag"
-                        style="width: 60px; height: 60px; object-fit: contain;">
-                </div>
-                <div class="col">
-                    <h4 class="mb-0 text-white fw-bold">PTSP Kementerian Agama</h4>
-                    <p class="mb-0 text-white-50">Kabupaten Nganjuk</p>
-                </div>
+<div class="single-page-wrapper">
+    <!-- Compact Header -->
+    <div class="compact-header">
+        <div class="header-content">
+            <img src="{{ asset('logo-kemenag.png') }}" alt="Logo Kemenag" class="header-logo">
+            <div class="header-text">
+                <h3>PTSP Kemenag Nganjuk</h3>
+                <span>Buku Tamu Digital</span>
             </div>
         </div>
     </div>
 
-    <div class="form-wrapper">
-        <div class="container">
-            <div class="row">
-                <!-- Welcome Section -->
-                <div class="col-lg-6 welcome-section d-none d-lg-flex">
-                    <div class="welcome-content">
-                        <div class="welcome-icon">
-                            <i class="fas fa-mosque"></i>
-                        </div>
-                        <h2>Selamat Datang di PTSP Kemenag Nganjuk</h2>
-                        <p class="mb-4">
-                            Pelayanan Terpadu Satu Pintu untuk kemudahan urusan keagamaan Anda
-                        </p>
-                        <div class="features-grid">
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-clock"></i>
-                                </div>
-                                <h6>Pelayanan Cepat</h6>
-                                <small>Proses pendaftaran hanya 2 menit</small>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-shield-alt"></i>
-                                </div>
-                                <h6>Data Aman</h6>
-                                <small>Data Anda tersimpan dengan aman</small>
-                            </div>
-                            <div class="feature-item">
-                                <div class="feature-icon">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </div>
-                                <h6>Digital Modern</h6>
-                                <small>Dapat diakses dari smartphone</small>
-                            </div>
-                        </div>
+    <!-- Single Page Form -->
+    <div class="form-section">
+        <div class="form-container">
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            <form method="POST" action="{{ route('guest.store') }}" id="guestForm">
+                @csrf
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="nama">Nama Lengkap *</label>
+                        <input type="text" id="nama" name="nama" value="{{ old('nama') }}"
+                               placeholder="Nama lengkap" required>
+                        @error('nama')<span class="error">{{ $message }}</span>@enderror
+                    </div>
+
+                    <div class="form-col">
+                        <label for="telepon">No. Telepon</label>
+                        <input type="tel" id="telepon" name="telepon" value="{{ old('telepon') }}"
+                               placeholder="08xxxxxxxxxx">
+                        @error('telepon')<span class="error">{{ $message }}</span>@enderror
                     </div>
                 </div>
 
-                <!-- Form Section -->
-                <div class="col-lg-6 d-flex align-items-center justify-content-center p-4">
-                    <div class="form-container w-100">
-                        <div class="form-card">
-                            <div class="form-header">
-                                <h1><i class="fas fa-book-open me-3"></i>Buku Tamu Digital</h1>
-                                <p>Silakan isi data diri Anda untuk melakukan check-in</p>
-                            </div>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="instansi">Instansi</label>
+                        <input type="text" id="instansi" name="instansi" value="{{ old('instansi') }}"
+                               placeholder="Nama instansi">
+                        @error('instansi')<span class="error">{{ $message }}</span>@enderror
+                    </div>
 
-                            <div class="form-body">
-                                @if(session('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {{ session('error') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    </div>
-                                @endif
-
-                                <form method="POST" action="{{ route('guest.store') }}" id="guestForm">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <label for="nama" class="form-label">
-                                            Nama Lengkap <span class="required">*</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="text"
-                                                   class="form-control @error('nama') is-invalid @enderror"
-                                                   id="nama"
-                                                   name="nama"
-                                                   value="{{ old('nama') }}"
-                                                   placeholder="Masukkan nama lengkap Anda"
-                                                   required>
-                                        </div>
-                                        @error('nama')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="telepon" class="form-label">Nomor Telepon</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            <input type="tel"
-                                                   class="form-control @error('telepon') is-invalid @enderror"
-                                                   id="telepon"
-                                                   name="telepon"
-                                                   value="{{ old('telepon') }}"
-                                                   placeholder="08xxxxxxxxxx">
-                                        </div>
-                                        @error('telepon')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="instansi" class="form-label">Instansi/Perusahaan</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                            <input type="text"
-                                                   class="form-control @error('instansi') is-invalid @enderror"
-                                                   id="instansi"
-                                                   name="instansi"
-                                                   value="{{ old('instansi') }}"
-                                                   placeholder="Nama instansi atau perusahaan">
-                                        </div>
-                                        @error('instansi')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="keperluan" class="form-label">
-                                            Keperluan Kunjungan <span class="required">*</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
-                                            <input type="text"
-                                                   class="form-control @error('keperluan') is-invalid @enderror"
-                                                   id="keperluan"
-                                                   name="keperluan"
-                                                   value="{{ old('keperluan') }}"
-                                                   placeholder="Jelaskan tujuan kunjungan Anda"
-                                                   required>
-                                        </div>
-                                        @error('keperluan')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="bidang" class="form-label">
-                                            Bidang yang Dituju <span class="required">*</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-sitemap"></i></span>
-                                            <select class="form-control @error('bidang') is-invalid @enderror"
-                                                    id="bidang"
-                                                    name="bidang"
-                                                    required>
-                                                <option value="">Pilih bidang yang akan dikunjungi</option>
-                                                @foreach($bidangs as $bidang)
-                                                    <option value="{{ $bidang->id }}" {{ old('bidang') == $bidang->id ? 'selected' : '' }}>
-                                                        {{ $bidang->nama }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('bidang')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="d-grid mt-4">
-                                        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
-                                            <i class="fas fa-sign-in-alt me-2"></i>
-                                            <span id="submitText">Check In Sekarang</span>
-                                        </button>
-                                    </div>
-                                </form>
-
-                                <div class="text-center mt-3">
-                                    <small class="text-muted">
-                                        Dengan melakukan check-in, Anda menyetujui kebijakan privasi kami
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="form-col">
+                        <label for="bidang">Bidang Tujuan *</label>
+                        <select id="bidang" name="bidang" required>
+                            <option value="">Pilih bidang</option>
+                            @foreach($bidangs as $bidang)
+                                <option value="{{ $bidang->id }}" {{ old('bidang') == $bidang->id ? 'selected' : '' }}>
+                                    {{ $bidang->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('bidang')<span class="error">{{ $message }}</span>@enderror
                     </div>
                 </div>
-            </div>
+
+                <div class="form-row full-width">
+                    <div class="form-col">
+                        <label for="keperluan">Keperluan Kunjungan *</label>
+                        <input type="text" id="keperluan" name="keperluan" value="{{ old('keperluan') }}"
+                               placeholder="Jelaskan tujuan kunjungan" required>
+                        @error('keperluan')<span class="error">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="submitText">CHECK IN SEKARANG</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -199,365 +85,355 @@
 
 @section('styles')
 <style>
-/* PTSP Kemenag Theme - Hijau */
-.ptsp-header {
-    background: linear-gradient(135deg, #1e7e34, #28a745);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.logo-kemenag {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    background: white;
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.form-wrapper {
-    background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
-    min-height: calc(100vh - 100px);
+/* Reset and base */
+* {
+    margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-.welcome-section {
-    background: linear-gradient(135deg, #1e7e34 0%, #28a745 100%);
-    color: white;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+}
+
+/* Single Page Layout */
+.single-page-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+/* Compact Header */
+.compact-header {
+    background: linear-gradient(135deg, #1e7e34, #28a745);
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.header-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 100px);
-    padding: 3rem;
-}
-
-.welcome-content {
-    text-align: center;
-    max-width: 400px;
-}
-
-.welcome-icon {
-    width: 100px;
-    height: 100px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem auto;
-    backdrop-filter: blur(10px);
-}
-
-.welcome-icon i {
-    font-size: 2.5rem;
-    color: white;
-}
-
-.welcome-content h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.welcome-content p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    line-height: 1.6;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 3rem;
-}
-
-.feature-item {
-    background: rgba(255,255,255,0.1);
-    border-radius: 15px;
-    padding: 1.5rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-}
-
-.feature-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem auto;
-}
-
-.feature-icon i {
-    font-size: 1.2rem;
-    color: white;
-}
-
-.feature-item h6 {
-    color: white;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-}
-
-.feature-item small {
-    color: rgba(255,255,255,0.8);
-    font-size: 0.85rem;
-}
-
-.form-container {
-    max-width: 500px;
+    gap: 1rem;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.form-card {
-    background: white;
-    border-radius: 20px;
-    padding: 2.5rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
-    margin: 2rem 0;
-}
-
-.form-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.form-header h1 {
-    color: #2c3e50;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-}
-
-.form-header p {
-    color: #6c757d;
-    font-size: 1rem;
-    margin-bottom: 0;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-.required {
-    color: #dc3545;
-}
-
-.input-group-text {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    color: #6c757d;
+.header-logo {
     width: 45px;
+    height: 45px;
+    background: white;
+    border-radius: 8px;
+    padding: 4px;
+    object-fit: contain;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-text h3 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.header-text span {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Form Section */
+.form-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    padding: 1rem;
+    overflow: hidden;
 }
 
-.form-control {
-    border: 1px solid #e9ecef;
-    border-radius: 0 10px 10px 0;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
+.form-container {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 900px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
 }
 
-.input-group-text {
-    border-radius: 10px 0 0 10px;
+/* Form Layout */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-.form-control:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem rgba(40,167,69,0.25);
+.form-row.full-width {
+    grid-template-columns: 1fr;
 }
 
-.form-control:focus + .input-group-text,
-.input-group .form-control:focus ~ .input-group-text {
-    border-color: #28a745;
+.form-col {
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    border: none;
-    border-radius: 50px;
-    padding: 0.75rem 2rem;
+/* Form Elements */
+label {
     font-weight: 600;
-    font-size: 1rem;
+    color: #2c3e50;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+input, select {
+    padding: 0.7rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px; /* Prevent iOS zoom */
     transition: all 0.3s ease;
+    background: white;
+    min-height: 44px;
 }
 
-.btn-primary:hover {
+input:focus, select:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+}
+
+/* Error Messages */
+.error {
+    color: #dc3545;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.alert {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Submit Section */
+.submit-section {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    min-height: 48px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    background: linear-gradient(135deg, #1e7e34 0%, #28a745 100%);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+    background: linear-gradient(135deg, #1e7e34 0%, #17a2b8 100%);
 }
 
-.btn-primary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(40,167,69,0.5);
+.submit-btn:disabled {
+    opacity: 0.7;
+    transform: none;
+    cursor: not-allowed;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .ptsp-header .container {
-        padding: 0 1rem;
-    }
-
-    .logo-kemenag {
-        width: 50px;
-        height: 50px;
-    }
-
-    .ptsp-header h4 {
-        font-size: 1.2rem;
-    }
-
-    .form-wrapper {
-        padding: 1rem 0;
-    }
-
-    .form-card {
-        padding: 2rem 1.5rem;
-        margin: 1rem;
-        border-radius: 15px;
-    }
-
-    .form-header h1 {
-        font-size: 1.5rem;
-    }
-
-    .welcome-content h2 {
-        font-size: 1.5rem;
-    }
-
-    .welcome-content {
-        padding: 2rem 1rem;
-    }
-
-    .welcome-section {
-        min-height: auto;
-        padding: 2rem 1rem;
-    }
-
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-top: 2rem;
-    }
-
-    .feature-item {
-        padding: 1rem;
-    }
-
-    .input-group-text {
+    .header-logo {
         width: 40px;
+        height: 40px;
     }
 
-    .form-control {
-        font-size: 16px; /* Prevents zoom on iOS */
+    .header-text h3 {
+        font-size: 1rem;
     }
 
-    .btn-primary {
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-        width: 100%;
+    .header-text span {
+        font-size: 0.8rem;
     }
-}
 
-@media (max-width: 576px) {
-    .form-card {
-        padding: 1.5rem 1rem;
+    .form-container {
+        padding: 1rem;
         margin: 0.5rem;
+        max-height: calc(100vh - 100px);
     }
 
-    .form-header h1 {
-        font-size: 1.3rem;
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
     }
 
-    .form-header p {
-        font-size: 0.9rem;
-    }
-
-    .input-group-text {
-        width: 35px;
+    label {
         font-size: 0.85rem;
+        margin-bottom: 0.3rem;
     }
 
-    .form-control {
+    input, select {
         padding: 0.6rem 0.8rem;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: 16px;
     }
 
-    .form-label {
+    .submit-btn {
+        padding: 0.8rem 2rem;
         font-size: 0.9rem;
-    }
-
-    .btn-primary {
-        padding: 0.75rem;
-        font-size: 0.95rem;
-    }
-
-    .welcome-content {
-        padding: 1.5rem 0.5rem;
-        text-align: center;
-    }
-
-    .welcome-content h2 {
-        font-size: 1.3rem;
-        line-height: 1.3;
-    }
-
-    .welcome-content p {
-        font-size: 0.95rem;
-    }
-
-    .welcome-icon {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 1.5rem;
-    }
-
-    .welcome-icon i {
-        font-size: 2rem;
+        min-width: 100%;
     }
 }
 
-/* Extra small devices */
-@media (max-width: 375px) {
-    .ptsp-header .row {
-        text-align: center;
+@media (max-width: 480px) {
+    .compact-header {
+        padding: 0.5rem;
     }
 
-    .ptsp-header .col-auto,
-    .ptsp-header .col {
-        flex: 0 0 100%;
-        max-width: 100%;
+    .header-content {
+        gap: 0.75rem;
+    }
+
+    .header-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .header-text h3 {
+        font-size: 0.9rem;
+    }
+
+    .header-text span {
+        font-size: 0.75rem;
+    }
+
+    .form-section {
+        padding: 0.5rem;
+    }
+
+    .form-container {
+        padding: 0.75rem;
+        border-radius: 12px;
+    }
+
+    .form-row {
+        gap: 0.5rem;
         margin-bottom: 0.5rem;
     }
 
-    .ptsp-header h4 {
-        font-size: 1rem;
-        margin-bottom: 0.2rem;
+    label {
+        font-size: 0.8rem;
     }
 
-    .form-card {
-        margin: 0.25rem;
-        padding: 1rem 0.75rem;
+    input, select {
+        padding: 0.5rem 0.7rem;
+        border-radius: 6px;
     }
 
-    .form-header h1 {
-        font-size: 1.2rem;
+    .submit-btn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.85rem;
+        border-radius: 25px;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .compact-header {
+        padding: 0.4rem 1rem;
     }
 
-    .form-group {
-        margin-bottom: 1.25rem;
+    .header-logo {
+        width: 35px;
+        height: 35px;
     }
+
+    .form-container {
+        max-height: calc(100vh - 80px);
+        padding: 1rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .submit-section {
+        margin-top: 1rem;
+    }
+}
+
+/* Very Small Screens */
+@media (max-width: 320px) {
+    .header-text h3 {
+        font-size: 0.8rem;
+    }
+
+    .form-container {
+        padding: 0.5rem;
+    }
+
+    input, select {
+        padding: 0.45rem 0.6rem;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Ensure no scroll */
+html, body {
+    height: 100%;
+    overflow: hidden;
 }
 </style>
 @endsection
@@ -569,10 +445,43 @@ document.getElementById('guestForm').addEventListener('submit', function(e) {
     const submitText = document.getElementById('submitText');
 
     submitBtn.disabled = true;
-    submitText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sedang memproses...';
+    submitText.innerHTML = '<span class="spinner-border-sm"></span> MEMPROSES...';
 });
 
 // Auto focus on first input
 document.getElementById('nama').focus();
+
+// Prevent form submission on Enter key except on submit button
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.type !== 'submit') {
+        e.preventDefault();
+        const form = document.getElementById('guestForm');
+        const inputs = Array.from(form.querySelectorAll('input, select')).filter(input => !input.disabled);
+        const currentIndex = inputs.indexOf(e.target);
+
+        if (currentIndex < inputs.length - 1) {
+            inputs[currentIndex + 1].focus();
+        } else {
+            document.getElementById('submitBtn').focus();
+        }
+    }
+});
+
+// Add visual feedback for required fields
+document.querySelectorAll('input[required], select[required]').forEach(field => {
+    field.addEventListener('blur', function() {
+        if (!this.value.trim()) {
+            this.style.borderColor = '#dc3545';
+        } else {
+            this.style.borderColor = '#28a745';
+        }
+    });
+
+    field.addEventListener('input', function() {
+        if (this.value.trim()) {
+            this.style.borderColor = '#28a745';
+        }
+    });
+});
 </script>
 @endsection

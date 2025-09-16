@@ -479,7 +479,6 @@ class WhatsAppService
                "🎯 *Bidang:* {$guest->bidangInfo->nama}\n" .
                "📍 *Keperluan:* {$guest->keperluan}\n" .
                "⏰ *Waktu:* {$checkInTime} WIB\n\n" .
-               "Silakan menunggu untuk dilayani sesuai antrian.\n\n" .
                "🚪 *Klik link di bawah ini jika sudah selesai:*\n" .
                "{$checkoutUrl}\n\n" .
                "═══════════════════════\n" .
