@@ -47,9 +47,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-search"></i> Filter
                                 </button>
-                                <a href="{{ route('admin.reports.export', request()->query()) }}" class="btn btn-success">
+                                {{-- <a href="{{ route('admin.reports.export', request()->query()) }}" class="btn btn-success">
                                     <i class="fas fa-download"></i> Export CSV
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     </div>
@@ -106,36 +106,6 @@
         </div>
     </div>
 
-    <!-- Statistik per Bidang -->
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Statistik per Bidang</h3>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Bidang</th>
-                            <th>Jumlah Tamu</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($statistikBidang as $stat)
-                        <tr>
-                            <td>{{ $stat->bidangInfo->nama ?? '-' }}</td>
-                            <td>{{ $stat->total }}</td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="2" class="text-center">Tidak ada data</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
     <!-- Data Tamu -->
     <div class="card">
