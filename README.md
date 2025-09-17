@@ -1,53 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Buku Tamu Digital PTSP Kemenag Nganjuk
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi Buku Tamu Digital yang modern, aman, dan terintegrasi dengan notifikasi WhatsApp untuk mendukung digitalisasi pelayanan publik di PTSP Kementerian Agama Kabupaten Nganjuk.
 
-## About Laravel
+## 🚀 Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 1. **Frontend Modern & Responsive**
+- **Single Page Design**: Tampilan satu halaman tanpa scroll (100vh)
+- **Compact Header**: Logo Kemenag + judul minimal
+- **Grid Layout**: Form 2 kolom yang otomatis menjadi 1 kolom di mobile
+- **Theme Kemenag**: Warna hijau konsisten dengan identitas Kemenag
+- **Touch-Friendly**: Tombol besar dan mudah diakses di perangkat mobile
+- **Real-time Validation**: Validasi form langsung saat input
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. **Sistem UUID untuk Keamanan**
+- **UUID Primary Key**: Mengganti ID auto-increment dengan UUID
+- **Enhanced Security**: Mencegah enumerasi ID dan prediksi data
+- **Privacy Protection**: Melindungi informasi jumlah tamu
+- **Scalable**: Siap untuk sistem terdistribusi dan API
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. **WhatsApp Notification System**
+- **Auto Notification**: Notifikasi otomatis ke admin dan tamu setelah check-in
+- **Checkout Links**: Link checkout dikirim via WhatsApp
+- **API Integration**: go-whatsapp-web-multidevice API
+- **Template Messages**: Format pesan standar dengan info lengkap
 
-## Learning Laravel
+### 4. **Admin Panel Comprehensive**
+- **Dashboard AdminLTE**: Interface modern dengan statistik
+- **CRUD Lengkap**: Manajemen tamu dan bidang
+- **Pagination**: Daftar tamu dengan pagination efisien
+- **WhatsApp Management**: Monitor dan test WhatsApp service
+- **Report System**: Laporan kunjungan dengan filter dan export
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 5. **Security & HTTPS**
+- **Force HTTPS**: Konfigurasi HTTPS di production
+- **Security Headers**: HSTS, CSP protection
+- **Middleware**: Custom security middleware
+- **CSRF Protection**: Token validation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 6. **Database & Performance**
+- **Optimized Structure**: Relasi tabel yang efisien
+- **Migration Strategy**: UUID migration tanpa data loss
+- **Seeding System**: Data dummy untuk testing
+- **Query Optimization**: Eloquent ORM yang optimal
 
-## Laravel Sponsors
+## 🛠️ Teknologi yang Digunakan
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Backend**: Laravel 8.x
+- **Frontend**: Bootstrap 5.3, jQuery, FontAwesome
+- **Database**: MySQL dengan UUID primary keys
+- **Admin Panel**: AdminLTE 3.x
+- **API Integration**: WhatsApp go-whatsapp-web-multidevice
+- **Security**: HTTPS, CSRF, UUID, Middleware
 
-### Premium Partners
+## 📋 Struktur Fitur
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Frontend (Guest)
+- Form check-in responsif
+- Halaman success dengan info lengkap
+- Halaman checkout dengan durasi kunjungan
+- Print-friendly layout
 
-## Contributing
+### Backend (Admin)
+- Dashboard dengan statistik
+- Manajemen guestbook (CRUD)
+- Manajemen bidang/divisi
+- WhatsApp monitoring panel
+- Laporan kunjungan
+- Export data (Excel/CSV)
+
+### Integrasi WhatsApp
+- Notifikasi real-time
+- Status monitoring
+- Test message functionality
+- Error handling & retry
+
+## 🔐 Keamanan
+
+- **UUID Implementation**: Primary key UUID untuk semua data sensitif
+- **HTTPS Enforcement**: Force HTTPS di production
+- **Route Validation**: UUID pattern validation
+- **Middleware Protection**: Custom security middleware
+- **CSRF Protection**: Laravel built-in CSRF
+
+## 📱 Mobile Support
+
+- **Responsive Design**: Mobile-first approach
+- **Touch Optimization**: Button size minimal 44px
+- **Breakpoint Strategy**: Desktop, tablet, mobile
+- **Offline Ready**: Structure siap untuk PWA
+
+## 🚀 Installation & Setup
+
+```bash
+# Clone repository
+git clone https://github.com/rahmadjunianto/buku-tamu.git
+cd buku-tamu
+
+# Install dependencies
+composer install
+npm install
+
+# Environment setup
+cp .env.example .env
+php artisan key:generate
+
+# Database setup
+php artisan migrate
+php artisan db:seed
+
+# WhatsApp configuration
+# Update .env with WhatsApp API settings
+WHATSAPP_SERVICE_URL=https://your-whatsapp-api.com
+WHATSAPP_AUTH_USERNAME=admin
+WHATSAPP_AUTH_PASSWORD=admin
+
+# Start development server
+php artisan serve
+```
+
+## 📚 Dokumentasi
+
+- [UUID Implementation Guide](UUID-IMPLEMENTATION.md)
+- [HTTPS Deployment Guide](HTTPS-DEPLOYMENT.md)
+- [WhatsApp Integration](wa-service.md)
+
+## 🎯 Aktualisasi LATSAR
+
+Aplikasi ini dikembangkan sebagai proyek aktualisasi LATSAR CPNS yang menunjukkan:
+- **Inovasi Digital**: Modernisasi pelayanan publik
+- **Keamanan Data**: Implementasi UUID dan HTTPS
+- **Efisiensi Administrasi**: Otomasi notifikasi dan laporan
+- **User Experience**: Interface modern dan mobile-friendly
+
+## 📈 Monitoring & Analytics
+
+- **WhatsApp Status**: Real-time monitoring koneksi
+- **Guest Statistics**: Tracking kunjungan harian/bulanan
+- **Performance Metrics**: Response time dan success rate
+- **Error Logging**: Comprehensive error tracking
+
+## 🔄 Future Development
+
+- **API Public**: RESTful API untuk integrasi
+- **Mobile App**: Native Android/iOS application
+- **Advanced Analytics**: Dashboard analytics lengkap
+- **Multi-tenant**: Support multiple instansi
+
+## 📞 Support & Contact
+
+- **Developer**: Rahmat Adjie Junianto
+- **Institution**: PTSP Kemenag Nganjuk
+- **Email**: [Your Email]
+- **GitHub**: [@rahmadjunianto](https://github.com/rahmadjunianto)
+
+---
+
+© 2025 PTSP Kementerian Agama Kabupaten Nganjuk. All rights reserved.
 
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
