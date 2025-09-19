@@ -92,7 +92,15 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <a href="{{ route('guest.form') }}" class="btn-primary full-width">
+                <a href="{{ route('guest.checkout', $guest->id) }}" class="btn-checkout-primary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Check-out Sekarang
+                </a>
+                <a href="#" class="btn-survey" onclick="openSurvey()">
+                    <i class="fas fa-clipboard-check"></i>
+                    Isi Survey Kepuasan
+                </a>
+                <a href="{{ route('guest.form') }}" class="btn-secondary">
                     <i class="fas fa-home"></i>
                     Kembali ke Beranda
                 </a>
@@ -105,10 +113,13 @@
                 <div class="notice-content">
                     <strong>Penting!</strong>
                     <span>Jangan lupa untuk melakukan check-out sebelum meninggalkan kantor.</span>
-                    <a href="{{ route('guest.checkout', $guest->id) }}" class="btn-checkout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Check-out Sekarang
-                    </a>
+                    <div class="checkout-instruction">
+                        <em>Klik link di bawah ini jika sudah selesai berkunjung:</em>
+                        <a href="{{ route('guest.checkout', $guest->id) }}" class="checkout-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            Link Check-out
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -297,12 +308,12 @@ body {
 /* Action Buttons */
 .action-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
     margin: 20px 0 15px;
 }
 
-.btn-primary, .btn-secondary {
+.btn-primary, .btn-secondary, .btn-checkout-primary, .btn-survey {
     padding: 12px 20px;
     border-radius: 12px;
     font-weight: 600;
@@ -316,6 +327,7 @@ body {
     gap: 8px;
     transition: all 0.3s ease;
     text-align: center;
+    min-height: 48px; /* Minimum touch target for mobile */
 }
 
 .btn-primary {
@@ -327,6 +339,47 @@ body {
 .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+.btn-checkout-primary {
+    background: linear-gradient(135deg, #dc3545, #e74c3c);
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-checkout-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-checkout-primary:hover::before {
+    left: 100%;
+}
+
+.btn-checkout-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.btn-survey {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+    font-weight: 700;
+}
+
+.btn-survey:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.4);
 }
 
 .btn-secondary {
@@ -379,6 +432,42 @@ body {
     font-weight: 700;
 }
 
+.checkout-instruction {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(30, 126, 52, 0.2);
+}
+
+.checkout-instruction em {
+    display: block;
+    font-style: italic;
+    color: #155724;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+}
+
+.checkout-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #1e7e34;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    border: 1px solid rgba(30, 126, 52, 0.3);
+    transition: all 0.3s ease;
+}
+
+.checkout-link:hover {
+    background: #1e7e34;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(30, 126, 52, 0.3);
+}
+
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .compact-header {
@@ -412,7 +501,15 @@ body {
 
     .action-buttons {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 15px;
+        margin: 25px 0 20px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-checkout-primary, .btn-survey {
+        padding: 14px 20px;
+        font-size: 1rem;
+        min-height: 52px;
+        font-weight: 700;
     }
 
     .info-item {
@@ -420,11 +517,12 @@ body {
     }
 
     .notice {
-        padding: 12px;
+        padding: 15px;
+        margin-top: 20px;
     }
 
     .notice-content {
-        font-size: 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -453,9 +551,31 @@ body {
         font-size: 0.9rem;
     }
 
-    .btn-primary, .btn-secondary {
-        padding: 10px 15px;
-        font-size: 0.85rem;
+    .btn-primary, .btn-secondary, .btn-checkout-primary, .btn-survey {
+        padding: 16px 20px;
+        font-size: 1rem;
+        min-height: 56px;
+        border-radius: 14px;
+    }
+
+    .action-buttons {
+        gap: 18px;
+        margin: 30px 0 25px;
+    }
+
+    .notice {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .notice-content {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .notice-content strong {
+        font-size: 1rem;
+        margin-bottom: 6px;
     }
 }
 
@@ -490,4 +610,16 @@ body {
     }
 }
 </style>
+
+<script>
+function openSurvey() {
+    // You can customize this URL to your actual survey link
+    const surveyUrl = 'https://forms.gle/your-survey-id'; // Replace with actual Google Forms or survey URL
+
+    // Show confirmation dialog
+    if (confirm('Apakah Anda ingin mengisi survey kepuasan pelayanan kami? Ini akan membuka halaman baru.')) {
+        window.open(surveyUrl, '_blank');
+    }
+}
+</script>
 @endsection
