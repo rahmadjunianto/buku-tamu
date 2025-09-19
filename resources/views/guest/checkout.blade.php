@@ -152,17 +152,18 @@
 
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
         background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
     }
 
     /* Single Page Layout */
     .single-page-wrapper {
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     /* Compact Header */
@@ -217,10 +218,11 @@
     .checkout-container {
         max-width: 1000px;
         margin: 0 auto;
-        height: 100%;
+        min-height: calc(100vh - 100px);
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding-bottom: 40px;
     }
 
     /* Checkout Header */
@@ -266,7 +268,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
-        flex: 1;
+        flex: 0 0 auto;
+        margin-bottom: 20px;
     }
 
     .info-item {
@@ -377,6 +380,11 @@
 
         .checkout-section {
             padding: 15px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .checkout-container {
+            padding-bottom: 60px;
         }
 
         .checkout-header h2 {
