@@ -10,11 +10,11 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Data Tamu</h3>
-            <div class="card-tools">
+            {{-- <div class="card-tools">
                 <a href="{{ route('admin.guestbook.create') }}" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus"></i> Tambah Tamu
                 </a>
-            </div>
+            </div> --}}
         </div>
         <div class="card-body">
             @if(session('success'))
