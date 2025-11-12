@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="bidang_id">Seksi Tujuan</label>
                             <select class="form-control" id="bidang_id" name="bidang_id">
-                                <option value="">Semua Bidang</option>
+                                <option value="">Semua Seksi</option>
                                 @foreach($bidangs as $bidang)
                                     <option value="{{ $bidang->id }}" {{ $bidangId == $bidang->id ? 'selected' : '' }}>
                                         {{ $bidang->nama }}
@@ -98,7 +98,59 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <a href="#" class="small-box-footer" data-toggle="tooltip" title="Total tamu dalam periode yang dipilih">
-                    Info <i class="fas fa-info-circle"></i>
+                   <i class="fas fa-info-circle"></i>  Total Tamu
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-gradient-success">
+                <div class="inner">
+                    <h3>
+                        @if($bidangTersering)
+                            {{ $bidangTersering->total }}
+                        @else
+                            0
+                        @endif
+                    </h3>
+                    <p>
+                        @if($bidangTersering && $bidangTersering->bidangInfo)
+                            {{ $bidangTersering->bidangInfo->nama }}
+                        @else
+                            Seksi Paling Dikunjungi
+                        @endif
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <a href="#" class="small-box-footer" data-toggle="tooltip" title="Seksi dengan kunjungan terbanyak pada periode ini">
+                    <i class="fas fa-info-circle"></i> Seksi Paling Sering Dikunjungi
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-gradient-warning">
+                <div class="inner">
+                    <h3>
+                        @if($hariTersibuk)
+                            {{ $hariTersibuk->total }}
+                        @else
+                            0
+                        @endif
+                    </h3>
+                    <p>
+                        @if($hariTersibuk)
+                            Tgl: {{ \Carbon\Carbon::parse($hariTersibuk->tanggal)->format('d/m/Y') }}
+                        @else
+                            Hari Paling Banyak Kunjungan
+                        @endif
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <a href="#" class="small-box-footer" data-toggle="tooltip" title="Hari dengan kunjungan terbanyak pada periode ini">
+                    <i class="fas fa-info-circle"></i> Hari Paling Banyak Kunjungan
                 </a>
             </div>
         </div>

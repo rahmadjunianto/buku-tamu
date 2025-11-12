@@ -41,20 +41,56 @@ class ReportController extends Controller
         $rataRataDurasi = $query->whereNotNull('duration_minutes')->avg('duration_minutes');
 
         // Statistik per bidang
-        $statistikBidang = Guestbook::select('bidang', DB::raw('COUNT(*) as total'))
+        $statistikBidangQuery = Guestbook::select('bidang', DB::raw('COUNT(*) as total'))
             ->with('bidangInfo')
             ->whereBetween('check_in_at', [
                 Carbon::parse($startDate)->startOfDay(),
                 Carbon::parse($endDate)->endOfDay()
-            ])
-            ->groupBy('bidang')
-            ->get();
+            ]);
+
+        if ($bidangId) {
+            $statistikBidangQuery->where('bidang', $bidangId);
+        }
+
+        $statistikBidang = $statistikBidangQuery->groupBy('bidang')->get();
+
+        // Seksi paling sering dikunjungi
+        $bidangTersering = Guestbook::select('bidang', DB::raw('COUNT(*) as total'))
+            ->with('bidangInfo')
+            ->whereBetween('check_in_at', [
+                Carbon::parse($startDate)->startOfDay(),
+                Carbon::parse($endDate)->endOfDay()
+            ]);
+
+        if ($bidangId) {
+            $bidangTersering->where('bidang', $bidangId);
+        }
+
+        $bidangTersering = $bidangTersering->groupBy('bidang')
+            ->orderBy('total', 'desc')
+            ->first();
+
+        // Hari paling banyak kunjungan
+        $hariTersibuk = Guestbook::select(DB::raw('DATE(check_in_at) as tanggal'), DB::raw('COUNT(*) as total'))
+            ->whereBetween('check_in_at', [
+                Carbon::parse($startDate)->startOfDay(),
+                Carbon::parse($endDate)->endOfDay()
+            ]);
+
+        if ($bidangId) {
+            $hariTersibuk->where('bidang', $bidangId);
+        }
+
+        $hariTersibuk = $hariTersibuk->groupBy('tanggal')
+            ->orderBy('total', 'desc')
+            ->first();
 
         $bidangs = Bidang::all();
 
         return view('admin.reports.index', compact(
             'guests', 'startDate', 'endDate', 'bidangId', 'bidangs',
-            'totalTamu', 'tamuSelesai', 'tamuBelumSelesai', 'rataRataDurasi', 'statistikBidang'
+            'totalTamu', 'tamuSelesai', 'tamuBelumSelesai', 'rataRataDurasi', 'statistikBidang',
+            'bidangTersering', 'hariTersibuk'
         ));
     }
 
