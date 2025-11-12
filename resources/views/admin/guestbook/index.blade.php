@@ -33,10 +33,10 @@
                             <th>Telepon</th>
                             <th>Instansi</th>
                             <th>Keperluan</th>
-                            <th>Bidang</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Status</th>
+                            <th>Seksi</th>
+                            <th>Jam Masuk</th>
+                            {{-- <th>Check Out</th> --}}
+                            {{-- <th>Status</th> --}}
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -50,20 +50,20 @@
                             <td>{{ $guest->keperluan }}</td>
                             <td>{{ $guest->bidangInfo->nama ?? '-' }}</td>
                             <td>{{ $guest->check_in_at->format('d/m/Y H:i') }}</td>
-                            <td>
+                            {{-- <td>
                                 @if($guest->check_out_at)
                                     {{ $guest->check_out_at->format('d/m/Y H:i') }}
                                 @else
                                     -
                                 @endif
-                            </td>
-                            <td>
+                            </td> --}}
+                            {{-- <td>
                                 @if($guest->check_out_at)
                                     <span class="badge badge-success">Sudah Checkout</span>
                                 @else
                                     <span class="badge badge-warning">Belum Checkout</span>
                                 @endif
-                            </td>
+                            </td> --}}
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('admin.guestbook.show', $guest->id) }}" class="btn btn-info btn-sm">
@@ -72,14 +72,14 @@
                                     <a href="{{ route('admin.guestbook.edit', $guest->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    @if(!$guest->check_out_at)
+                                    {{-- @if(!$guest->check_out_at)
                                         <form method="POST" action="{{ route('admin.guestbook.checkout', $guest->id) }}" style="display: inline;">
                                             @csrf
                                             <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Yakin checkout tamu ini?')">
                                                 <i class="fas fa-sign-out-alt"></i>
                                             </button>
                                         </form>
-                                    @endif
+                                    @endif --}}
                                     <form method="POST" action="{{ route('admin.guestbook.destroy', $guest->id) }}" style="display: inline;">
                                         @csrf
                                         @method('DELETE')

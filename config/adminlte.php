@@ -320,23 +320,23 @@ return [
             'route' => 'admin.dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
-        ['header' => 'MANAJEMEN TAMU'],
-        [
-            'text' => 'Buku Tamu',
-            'route' => 'admin.guestbook.index',
-            'icon' => 'fas fa-fw fa-book',
-        ],
+        // ['header' => 'MANAJEMEN TAMU'],
+        // [
+        //     'text' => 'Buku Tamu',
+        //     'route' => 'admin.guestbook.index',
+        //     'icon' => 'fas fa-fw fa-book',
+        // ],
         [
             'text' => 'Laporan Kunjungan',
             'route' => 'admin.reports.index',
             'icon' => 'fas fa-fw fa-chart-line',
         ],
-        ['header' => 'NOTIFIKASI'],
-        [
-            'text' => 'WhatsApp',
-            'route' => 'admin.whatsapp.index',
-            'icon' => 'fab fa-fw fa-whatsapp',
-        ],
+        // ['header' => 'NOTIFIKASI'],
+        // [
+        //     'text' => 'WhatsApp',
+        //     'route' => 'admin.whatsapp.index',
+        //     'icon' => 'fab fa-fw fa-whatsapp',
+        // ],
     ],
 
     /*

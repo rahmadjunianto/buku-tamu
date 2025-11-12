@@ -50,9 +50,9 @@
                     </div>
 
                     <div class="form-col">
-                        <label for="bidang">Bidang Tujuan *</label>
+                        <label for="bidang">Seksi Tujuan *</label>
                         <select id="bidang" name="bidang" required>
-                            <option value="">Pilih bidang</option>
+                            <option value="">Pilih Seksi</option>
                             @foreach($bidangs as $bidang)
                                 <option value="{{ $bidang->id }}" {{ old('bidang') == $bidang->id ? 'selected' : '' }}>
                                     {{ $bidang->nama }}
@@ -74,7 +74,7 @@
 
                 <div class="submit-section">
                     <button type="submit" class="submit-btn" id="submitBtn">
-                        <span id="submitText">CHECK IN SEKARANG</span>
+                        <span id="submitText">SIMPAN</span>
                     </button>
                 </div>
             </form>

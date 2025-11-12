@@ -1,6 +1,6 @@
 @extends('guest.layout')
 
-@section('title', 'Check-in Berhasil - Buku Tamu PTSP Kemenag Nganjuk')
+@section('title', 'Buku Tamu PTSP Kemenag Nganjuk')
 
 @section('content')
 <div class="single-page-wrapper">
@@ -23,7 +23,7 @@
                 <div class="success-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <h2>Check-in Berhasil!</h2>
+                <h2>Berhasil!</h2>
                 <p>Terima kasih telah berkunjung ke PTSP Kemenag Nganjuk</p>
             </div>
 
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="info-item full-width">
+                <div class="info-item ">
                     <div class="info-icon">
                         <i class="fas fa-clipboard-list"></i>
                     </div>
@@ -79,12 +79,12 @@
                     </div>
                 </div>
 
-                <div class="info-item highlight">
+                <div class="info-item">
                     <div class="info-icon">
                         <i class="fas fa-clock"></i>
                     </div>
                     <div class="info-content">
-                        <label>Waktu Check-in</label>
+                        <label>Waktu Masuk</label>
                         <span>{{ $guest->check_in_at ? $guest->check_in_at->format('d F Y, H:i') : '-' }} WIB</span>
                     </div>
                 </div>
@@ -92,21 +92,21 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <a href="{{ route('guest.checkout', $guest->id) }}" class="btn-checkout-primary">
+                {{-- <a href="{{ route('guest.checkout', $guest->id) }}" class="btn-checkout-primary">
                     <i class="fas fa-sign-out-alt"></i>
                     Check-out Sekarang
-                </a>
+                </a> --}}
                 <a href="#" class="btn-survey" onclick="openSurvey()">
                     <i class="fas fa-clipboard-check"></i>
                     Isi Survey Kepuasan
                 </a>
-                <a href="{{ route('guest.form') }}" class="btn-secondary">
+                {{-- <a href="{{ route('guest.form') }}" class="btn-secondary">
                     <i class="fas fa-home"></i>
                     Kembali ke Beranda
-                </a>
+                </a> --}}
             </div>
             <!-- Important Notice -->
-            <div class="notice">
+            {{-- <div class="notice">
                 <div class="notice-icon">
                     <i class="fas fa-info-circle"></i>
                 </div>
@@ -121,7 +121,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

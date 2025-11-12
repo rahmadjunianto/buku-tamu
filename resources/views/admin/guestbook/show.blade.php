@@ -32,7 +32,7 @@
                             <td>{{ $guest->keperluan }}</td>
                         </tr>
                         <tr>
-                            <th>Bidang</th>
+                            <th>Seksi Tujuan</th>
                             <td>{{ $guest->bidangInfo->nama ?? '-' }}</td>
                         </tr>
                     </table>
@@ -40,10 +40,10 @@
                 <div class="col-md-6">
                     <table class="table table-bordered">
                         <tr>
-                            <th width="30%">Check In</th>
+                            <th width="30%">Jam Masuk</th>
                             <td>{{ $guest->check_in_at->format('d/m/Y H:i:s') }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <th>Check Out</th>
                             <td>
                                 @if($guest->check_out_at)
@@ -62,7 +62,7 @@
                                     -
                                 @endif
                             </td>
-                        </tr>
+                        </tr> --}}
                     </table>
                 </div>
             </div>
@@ -71,14 +71,14 @@
             <a href="{{ route('admin.guestbook.edit', $guest->id) }}" class="btn btn-warning">
                 <i class="fas fa-edit"></i> Edit
             </a>
-            @if(!$guest->check_out_at)
+            {{-- @if(!$guest->check_out_at)
                 <form method="POST" action="{{ route('admin.guestbook.checkout', $guest->id) }}" style="display: inline;">
                     @csrf
                     <button type="submit" class="btn btn-success" onclick="return confirm('Yakin checkout tamu ini?')">
                         <i class="fas fa-sign-out-alt"></i> Checkout
                     </button>
                 </form>
-            @endif
+            @endif --}}
             <a href="{{ route('admin.guestbook.index') }}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> Kembali
             </a>

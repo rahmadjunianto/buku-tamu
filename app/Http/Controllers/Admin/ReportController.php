@@ -88,8 +88,9 @@ class ReportController extends Controller
 
             // Header CSV
             fputcsv($file, [
-                'No', 'Nama', 'Telepon', 'Instansi', 'Keperluan', 'Bidang',
-                'Check In', 'Check Out', 'Durasi (menit)', 'Status'
+                'No', 'Nama', 'Telepon', 'Instansi', 'Keperluan', 'Seksi Tujuan',
+                'Jam Masuk',
+                // 'Check Out', 'Durasi (menit)', 'Status'
             ]);
 
             // Data
@@ -102,9 +103,9 @@ class ReportController extends Controller
                     $guest->keperluan,
                     $guest->bidangInfo->nama ?? '-',
                     $guest->check_in_at->format('d/m/Y H:i:s'),
-                    $guest->check_out_at ? $guest->check_out_at->format('d/m/Y H:i:s') : '-',
-                    $guest->duration_minutes ?? '-',
-                    $guest->check_out_at ? 'Selesai' : 'Belum Selesai'
+                    // $guest->check_out_at ? $guest->check_out_at->format('d/m/Y H:i:s') : '-',
+                    // $guest->duration_minutes ?? '-',
+                    // $guest->check_out_at ? 'Selesai' : 'Belum Selesai'
                 ]);
             }
 

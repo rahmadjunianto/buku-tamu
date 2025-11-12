@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="bidang_id">Bidang</label>
+                            <label for="bidang_id">Seksi Tujuan</label>
                             <select class="form-control" id="bidang_id" name="bidang_id">
                                 <option value="">Semua Bidang</option>
                                 @foreach($bidangs as $bidang)
@@ -102,7 +102,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-lg-3 col-6">
+        {{-- <div class="col-lg-3 col-6">
             <div class="small-box bg-gradient-success">
                 <div class="inner">
                     <h3>{{ $tamuSelesai }}</h3>
@@ -143,9 +143,49 @@
                     Info <i class="fas fa-info-circle"></i>
                 </a>
             </div>
-        </div>
+        </div> --}}
     </div>
 
+{{--
+    <!-- Chart: Distribusi Bidang -->
+    <div class="card card-outline card-info">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-chart-pie"></i> Distribusi Kunjungan per Bidang</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            @php
+                // Group guests by bidang name, fall back to a default label
+                $byBidang = $guests->groupBy(function($g) {
+                    return optional($g->bidangInfo)->nama ?? 'Tidak Ditetapkan';
+                });
+                $chartLabels = $byBidang->keys()->toArray();
+                $chartValues = $byBidang->map->count()->values()->toArray();
+            @endphp
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="height:320px;">
+                        <canvas id="bidangChart" aria-label="Chart distribusi bidang" role="img" style="height:100%; width:100%; display:block;"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex align-items-center">
+                    <div>
+                        <p class="text-muted">Total kunjungan: <strong>{{ $guests->total() ?? $guests->count() }}</strong></p>
+                        <ul class="list-unstyled mb-0">
+                            @foreach($byBidang as $name => $group)
+                                <li><span class="badge badge-pill badge-light mr-2">&nbsp;</span> {{ $name }} — <strong>{{ $group->count() }}</strong></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
     <!-- Data Tamu -->
     <div class="card card-outline card-primary">
@@ -173,11 +213,11 @@
                             <th>Telepon</th>
                             <th>Instansi</th>
                             <th>Keperluan</th>
-                            <th>Bidang</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
+                            <th>Seksi Tujuan</th>
+                            <th>Jam Masuk</th>
+                            {{-- <th>Check Out</th>
                             <th>Durasi</th>
-                            <th>Status</th>
+                            <th>Status</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -190,7 +230,7 @@
                             <td>{{ $guest->keperluan }}</td>
                             <td>{{ $guest->bidangInfo->nama ?? '-' }}</td>
                             <td>{{ $guest->check_in_at->format('d/m/Y H:i') }}</td>
-                            <td>
+                            {{-- <td>
                                 @if($guest->check_out_at)
                                     {{ $guest->check_out_at->format('d/m/Y H:i') }}
                                 @else
@@ -210,7 +250,7 @@
                                 @else
                                     <span class="badge badge-warning">Belum Selesai</span>
                                 @endif
-                            </td>
+                            </td> --}}
                         </tr>
                         @empty
                         <tr>
@@ -367,12 +407,13 @@
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> --}}
 <script>
 $(function () {
     // Enable tooltips
     $('[data-toggle="tooltip"]').tooltip();
 
-    // Initialize DataTable
+    // Initialize DataTable (Laravel pagination is used, so disable DataTables paging)
     $('#report-table').DataTable({
         responsive: true,
         autoWidth: false,
@@ -380,34 +421,28 @@ $(function () {
         ordering: true,
         dom: '<"d-flex justify-content-between align-items-center mb-3"lf>rt<"d-flex justify-content-between align-items-center mt-3"ip>',
         language: {
-            "sEmptyTable":     "Tidak ada data yang tersedia pada tabel ini",
-            "sProcessing":     "Sedang memproses...",
-            "sLengthMenu":     "Tampilkan _MENU_ entri",
-            "sZeroRecords":    "Tidak ditemukan data yang sesuai",
-            "sInfo":           "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            "sInfoEmpty":      "Menampilkan 0 sampai 0 dari 0 entri",
-            "sInfoFiltered":   "(disaring dari _MAX_ entri keseluruhan)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Cari:",
-            "sUrl":           "",
+            "sEmptyTable":  "Tidak ada data yang tersedia pada tabel ini",
+            "sProcessing":  "Sedang memproses...",
+            "sLengthMenu":  "Tampilkan _MENU_ entri",
+            "sZeroRecords": "Tidak ditemukan data yang sesuai",
+            "sInfo":        "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            "sInfoEmpty":   "Menampilkan 0 sampai 0 dari 0 entri",
+            "sInfoFiltered":"(disaring dari _MAX_ entri keseluruhan)",
+            "sSearch":      "Cari:",
             "oPaginate": {
-                "sFirst":      "Pertama",
-                "sPrevious":   "Sebelumnya",
-                "sNext":       "Selanjutnya",
-                "sLast":       "Terakhir"
+                "sFirst":    "Pertama",
+                "sPrevious": "Sebelumnya",
+                "sNext":     "Selanjutnya",
+                "sLast":     "Terakhir"
             }
         },
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.11.5/i18n/id.json'
-        },
-        paging: false,  // Disable DataTables paging since we're using Laravel's
+        paging: false,  // Disable DataTables paging; use Laravel pagination below the table
         searching: true,
-        info: false,    // Hide "Showing X of Y entries"
-        order: [[6, 'desc']], // Sort by check-in date by default
-        dom: 'rtip',    // Only show processing, table, info, and pagination
+        info: false,
+        order: [[6, 'desc']]
     });
 
-    // Reset button handler
+    // Reset button handler: clear filters and resubmit
     $('button[type="reset"]').click(function() {
         $('#start_date').val('');
         $('#end_date').val('');
@@ -416,6 +451,58 @@ $(function () {
             $('button[type="submit"]').click();
         }, 10);
     });
+
+    // // Chart.js: render pie chart for bidang distribution
+    // try {
+    //     const bidangLabels = @json($chartLabels ?? []);
+    //     const bidangValues = @json($chartValues ?? []);
+    //     const ctxEl = document.getElementById('bidangChart');
+    //     if (ctxEl && bidangLabels.length) {
+    //         const ctx = ctxEl.getContext('2d');
+    //         // Generate a color palette
+    //         const palette = [
+    //             '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796', '#5a5c69', '#2e59d9'
+    //         ];
+    //         const bgColors = bidangLabels.map((_, i) => palette[i % palette.length]);
+
+    //         // Ensure the canvas element fills its parent
+    //         ctxEl.style.display = 'block';
+
+    //         new Chart(ctx, {
+    //             type: 'pie',
+    //             data: {
+    //                 labels: bidangLabels,
+    //                 datasets: [{
+    //                     data: bidangValues,
+    //                     backgroundColor: bgColors,
+    //                     borderColor: '#fff',
+    //                     borderWidth: 2
+    //                 }]
+    //             },
+    //             options: {
+    //                 responsive: true,
+    //                 maintainAspectRatio: false,
+    //                 plugins: {
+    //                     legend: {
+    //                         position: 'top'
+    //                     },
+    //                     tooltip: {
+    //                         callbacks: {
+    //                             label: function(context) {
+    //                                 const label = context.label || '';
+    //                                 const value = context.parsed || 0;
+    //                                 return label + ': ' + value;
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     }
+    // } catch (e) {
+    //     // Chart rendering errors shouldn't break the page
+    //     console.error('Chart render error:', e);
+    // }
 });
 </script>
 @stop
