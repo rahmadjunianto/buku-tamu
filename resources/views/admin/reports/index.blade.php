@@ -69,11 +69,15 @@
             <h3 class="card-title"><i class="fas fa-download"></i> Export Data</h3>
         </div>
         <div class="card-body">
-            <div class="d-flex align-items-center flex-column flex-sm-row">
+            <div class="d-flex align-items-center flex-column flex-sm-row gap-2">
                 <div class="btn-group mb-3 mb-sm-0">
                     <a href="{{ route('admin.reports.export', array_merge(request()->query(), ['format' => 'csv'])) }}"
                        class="btn btn-success px-4 py-2">
                         <i class="fas fa-file-excel mr-2"></i> Export Excel
+                    </a>
+                    <a href="{{ route('admin.reports.export', array_merge(request()->query(), ['format' => 'pdf'])) }}"
+                       class="btn btn-danger px-4 py-2">
+                        <i class="fas fa-file-pdf mr-2"></i> Export PDF
                     </a>
                 </div>
                 <div class="ml-sm-3">

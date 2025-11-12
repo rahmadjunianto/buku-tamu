@@ -99,6 +99,7 @@ class ReportController extends Controller
         $startDate = $request->get('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
         $endDate = $request->get('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
         $bidangId = $request->get('bidang_id');
+        $format = $request->get('format', 'csv');
 
         $query = Guestbook::with('bidangInfo')
             ->whereBetween('check_in_at', [
@@ -112,6 +113,16 @@ class ReportController extends Controller
 
         $guests = $query->orderBy('check_in_at', 'desc')->get();
 
+        if ($format === 'pdf') {
+            return $this->exportPdf($guests, $startDate, $endDate, $bidangId);
+        }
+
+        // Default CSV export
+        return $this->exportCsv($guests, $startDate, $endDate);
+    }
+
+    private function exportCsv($guests, $startDate, $endDate)
+    {
         $filename = 'laporan_kunjungan_' . $startDate . '_' . $endDate . '.csv';
 
         $headers = [
@@ -126,7 +137,6 @@ class ReportController extends Controller
             fputcsv($file, [
                 'No', 'Nama', 'Telepon', 'Instansi', 'Keperluan', 'Seksi Tujuan',
                 'Jam Masuk',
-                // 'Check Out', 'Durasi (menit)', 'Status'
             ]);
 
             // Data
@@ -139,9 +149,6 @@ class ReportController extends Controller
                     $guest->keperluan,
                     $guest->bidangInfo->nama ?? '-',
                     $guest->check_in_at->format('d/m/Y H:i:s'),
-                    // $guest->check_out_at ? $guest->check_out_at->format('d/m/Y H:i:s') : '-',
-                    // $guest->duration_minutes ?? '-',
-                    // $guest->check_out_at ? 'Selesai' : 'Belum Selesai'
                 ]);
             }
 
@@ -149,5 +156,30 @@ class ReportController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    private function exportPdf($guests, $startDate, $endDate, $bidangId)
+    {
+        $bidangName = '';
+        if ($bidangId) {
+            $bidang = Bidang::find($bidangId);
+            $bidangName = $bidang ? ' - ' . $bidang->nama : '';
+        }
+
+        $html = view('admin.reports.pdf-export', compact(
+            'guests', 'startDate', 'endDate', 'bidangName'
+        ))->render();
+
+        $pdf = new \Dompdf\Dompdf();
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+
+        $filename = 'laporan_kunjungan_' . $startDate . '_' . $endDate . '.pdf';
+
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 }
