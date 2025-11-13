@@ -1,6 +1,6 @@
 @extends('guest.layout')
 
-@section('title', 'Buku Tamu PTSP Kemenag Nganjuk')
+@section('title', 'SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Kabupaten Nganjuk')
 
 @section('content')
 <div class="single-page-wrapper">
@@ -9,8 +9,8 @@
         <div class="header-content">
             <img src="{{ asset('logo-kemenag.png') }}" alt="Logo Kemenag" class="header-logo">
             <div class="header-text">
-                <h3>PTSP Kemenag Nganjuk</h3>
-                <span>Buku Tamu Digital</span>
+                <h3> Kementerian Agama Kabupaten Nganjuk</h3>
+                <span>SIBUTEK (Sistem Buku Tamu Elektronik)</span>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @extends('guest.layout')
 
-@section('title', 'Checkout - PTSP Kemenag Nganjuk')
+@section('title', 'Checkout - Kementerian Agama Nganjuk')
 
 @section('content')
 <div class="single-page-wrapper">
@@ -9,7 +9,7 @@
         <div class="header-content">
             <img src="{{ asset('logo-kemenag.png') }}" alt="Logo Kemenag" class="header-logo">
             <div class="header-text">
-                <h3>PTSP Kemenag Nganjuk</h3>
+                <h3>Kementerian Agama Nganjuk</h3>
                 <span>Buku Tamu Digital</span>
             </div>
         </div>

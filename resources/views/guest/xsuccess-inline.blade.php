@@ -1,6 +1,6 @@
 @extends('guest.layout')
 
-@section('title', 'Check-in Berhasil - Buku Tamu PTSP Kemenag Nganjuk')
+@section('title', 'Check-in Berhasil - SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Kabupaten Nganjuk')
 
 @section('content')
 <div class="container-fluid p-0">
@@ -33,7 +33,7 @@
                                 <i class="fas fa-check-circle" style="font-size: 2rem; color: white;"></i>
                             </div>
                             <h1 style="color: #1e7e34; font-size: 2.2rem; font-weight: 700; margin-bottom: 10px;">Check-in Berhasil!</h1>
-                            <p style="color: #6c757d; font-size: 1.1rem;">Terima kasih telah berkunjung ke PTSP Kemenag Nganjuk</p>
+                            <p style="color: #6c757d; font-size: 1.1rem;">Terima kasih telah berkunjung ke Kementerian Agama Nganjuk</p>
                         </div>
 
                         <!-- Guest Information -->

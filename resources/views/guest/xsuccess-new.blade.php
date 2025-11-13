@@ -1,6 +1,6 @@
 @extends('guest.layout')
 
-@section('title', 'Check-in Berhasil - Buku Tamu PTSP Kemenag Nganjuk')
+@section('title', 'Check-in Berhasil - SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Kabupaten Nganjuk')
 
 @section('content')
 <div class="container-fluid p-0">
@@ -33,7 +33,7 @@
                                 <i class="fas fa-check-circle"></i>
                             </div>
                             <h1 class="success-title">Check-in Berhasil!</h1>
-                            <p class="success-subtitle">Terima kasih telah berkunjung ke PTSP Kemenag Nganjuk</p>
+                            <p class="success-subtitle">Terima kasih telah berkunjung ke Kementerian Agama Nganjuk</p>
                         </div>
 
                         <!-- Guest Information Card -->

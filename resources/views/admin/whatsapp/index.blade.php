@@ -148,7 +148,7 @@
                     <div class="form-group">
                         <label for="test-message">Custom Message (optional)</label>
                         <textarea class="form-control" id="test-message" name="message" rows="3"
-                                  placeholder="Leave empty to use default template message">Test message dari PTSP Kemenag Nganjuk</textarea>
+                                  placeholder="Leave empty to use default template message">Test message dari Kementerian Agama Nganjuk</textarea>
                     </div>
                 </form>
 

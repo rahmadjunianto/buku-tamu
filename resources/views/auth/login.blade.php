@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Login Admin - Buku Tamu PTSP Kemenag Nganjuk</title>
+    <title>Login Admin - SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Kabupaten Nganjuk</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -286,7 +286,7 @@
                     <img src="{{ asset('logo-kemenag.png') }}" alt="Logo Kemenag">
                 </div>
                 <h1 class="login-title">Admin Panel</h1>
-                <p class="login-subtitle">PTSP Kemenag Nganjuk</p>
+                <p class="login-subtitle">SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Nganjuk</p>
             </div>
 
             <!-- Error Messages -->
@@ -368,21 +368,20 @@
                 </button>
 
                 <!-- Forgot Password -->
-                @if (Route::has('password.request'))
+                {{-- @if (Route::has('password.request'))
                     <div class="text-center">
                         <a class="forgot-password" href="{{ route('password.request') }}">
                             <i class="fas fa-question-circle me-1"></i>
                             Lupa Password?
                         </a>
                     </div>
-                @endif
+                @endif --}}
             </form>
 
             <!-- Footer -->
             <div class="footer-text">
-                <i class="fas fa-shield-alt me-1"></i>
-                Sistem Buku Tamu Digital<br>
-                © {{ date('Y') }} PTSP Kemenag Nganjuk
+                SIBUTEK (Sistem Buku Tamu Elektronik)<br>
+                © {{ date('Y') }} Kementerian Agama Nganjuk
             </div>
         </div>
     </div>

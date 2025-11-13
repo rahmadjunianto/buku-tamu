@@ -7,10 +7,10 @@
     <meta name="theme-color" content="#28a745">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="PTSP Kemenag Nganjuk">
+    <meta name="apple-mobile-web-app-title" content="Kementerian Agama Nganjuk">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Buku Tamu PTSP Kemenag Nganjuk')</title>
+    <title>@yield('title', 'SIBUTEK (Sistem Buku Tamu Elektronik) Kementerian Agama Kabupaten Nganjuk')</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
