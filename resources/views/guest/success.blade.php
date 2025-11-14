@@ -96,10 +96,10 @@
                     <i class="fas fa-sign-out-alt"></i>
                     Check-out Sekarang
                 </a> --}}
-                <a href="#" class="btn-survey" onclick="openSurvey()">
+                {{-- <a href="#" class="btn-survey" onclick="openSurvey()">
                     <i class="fas fa-clipboard-check"></i>
                     Isi Survey Kepuasan
-                </a>
+                </a> --}}
                 {{-- <a href="{{ route('guest.form') }}" class="btn-secondary">
                     <i class="fas fa-home"></i>
                     Kembali ke Beranda
