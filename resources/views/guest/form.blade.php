@@ -17,6 +17,16 @@
 
     <!-- Single Page Form -->
     <div class="form-section">
+        <!-- Welcome Message (inside form section) -->
+        <div class="welcome-section">
+            <div class="welcome-message">
+                <h2>Selamat Datang</h2>
+                <p>Terima kasih telah mengunjungi Kementerian Agama Kabupaten Nganjuk.<br>
+                   Silahkan isi formulir di bawah ini untuk mendaftarkan kunjungan Anda secara elektronik.<br>
+                   Sistem Buku Tamu Elektronik (SIBUTEK) memudahkan proses pendaftaran kunjungan dengan cepat, mudah, dan transparan.</p>
+            </div>
+        </div>
+
         <div class="form-container">
             @if(session('error'))
                 <div class="alert alert-danger">{{ session('error') }}</div>
@@ -94,18 +104,21 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100vh;
-    overflow: hidden;
+    /* allow natural page height and mobile scrolling */
+    min-height: 100vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
     background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
 }
 
 /* Single Page Layout */
 .single-page-wrapper {
-    height: 100vh;
+    /* prefer min-height so content can grow on small screens */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     max-width: 100vw;
-    overflow: hidden;
+    overflow: auto;
 }
 
 /* Compact Header */
@@ -153,10 +166,12 @@ body {
 .form-section {
     flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: stretch; /* ensure children use full width on small screens */
+    justify-content: flex-start;
     padding: 1rem;
-    overflow: hidden;
+    overflow: auto;
+    gap: 1rem;
 }
 
 .form-container {
@@ -168,6 +183,45 @@ body {
     max-width: 900px;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
+}
+
+/* Welcome Section */
+.welcome-section {
+    padding: 1rem;
+    text-align: center;
+    background: white;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 100%;
+    flex-shrink: 0;
+    /* ensure the welcome section doesn't collapse and is always visible */
+    flex: none;
+}
+
+.welcome-message {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.welcome-message h2 {
+    color: #28a745;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.welcome-message p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Form Layout */
@@ -255,7 +309,6 @@ select {
     transition: all 0.3s ease;
     min-width: 200px;
     min-height: 48px;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
@@ -304,7 +357,8 @@ select {
     .form-container {
         padding: 1rem;
         margin: 0.5rem;
-        max-height: calc(100vh - 100px);
+        /* On mobile allow the container to grow so the welcome message is visible above it */
+        max-height: none;
     }
 
     .form-row {
@@ -354,6 +408,22 @@ select {
 
     .form-section {
         padding: 0.5rem;
+    }
+
+    /* Force the welcome section to be visible and above the form on very small screens */
+    .welcome-section {
+        display: block !important;
+        position: relative !important;
+        z-index: 5;
+        margin-bottom: 0.5rem;
+        order: -1;
+        width: 100%;
+    }
+
+    .form-container {
+        /* don't constrain height on tiny screens */
+        max-height: none;
+        margin-top: 0;
     }
 
     .form-container {
@@ -430,10 +500,34 @@ select {
     }
 }
 
-/* Ensure no scroll */
+/* Allow scrolling on all devices */
 html, body {
-    height: 100%;
-    overflow: hidden;
+    height: auto;
+    overflow: auto;
+}
+
+/* Desktop: center the form container in the viewport */
+@media (min-width: 769px) {
+    .form-section {
+        /* center horizontally and vertically on larger screens */
+        align-items: center;
+        justify-content: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        gap: 2rem;
+    }
+
+    .form-container {
+        /* make sure container is centered and has the intended max width */
+        margin: 0 auto;
+        max-width: 900px;
+    }
+
+    .welcome-section {
+        /* keep welcome above the form, but allow it to be centered as well */
+        width: min(900px, 95%);
+        margin: 0 auto 1rem auto;
+    }
 }
 </style>
 @endsection
