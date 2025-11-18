@@ -33,6 +33,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Admin Routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/surveys-dashboard', [App\Http\Controllers\Admin\SurveyDashboardController::class, 'index'])->name('admin.surveys.dashboard');
+    Route::get('/surveys-data', [App\Http\Controllers\Admin\SurveyDashboardController::class, 'data'])->name('admin.surveys.data');
 
     // Guestbook routes
     Route::resource('guestbook', App\Http\Controllers\Admin\GuestbookController::class)->names('admin.guestbook');

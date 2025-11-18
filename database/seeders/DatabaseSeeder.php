@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BidangSeeder::class,
             GuestbookSeeder::class,
+            SurveyResponseSeeder::class,
         ]);
 
         // \App\Models\User::factory(10)->create();
