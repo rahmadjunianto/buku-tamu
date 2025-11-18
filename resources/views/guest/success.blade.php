@@ -96,7 +96,7 @@
                     <i class="fas fa-sign-out-alt"></i>
                     Check-out Sekarang
                 </a> --}}
-                <a href="#" class="btn-survey" onclick="openSurvey()">
+                <a href="{{ route('survey.create', $guest->id) }}" class="btn-survey">
                     <i class="fas fa-clipboard-check"></i>
                     Isi Survey Kepuasan
                 </a>
