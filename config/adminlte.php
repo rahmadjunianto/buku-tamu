@@ -320,11 +320,11 @@ return [
             'route' => 'admin.dashboard',
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
-        [
-            'text' => 'Survey Kepuasan',
-            'route' => 'admin.surveys.dashboard',
-            'icon' => 'fas fa-fw fa-tachometer-alt',
-        ],
+        // [
+        //     'text' => 'Survey Kepuasan',
+        //     'route' => 'admin.surveys.dashboard',
+        //     'icon' => 'fas fa-fw fa-tachometer-alt',
+        // ],
         // ['header' => 'MANAJEMEN TAMU'],
         // [
         //     'text' => 'Buku Tamu',
