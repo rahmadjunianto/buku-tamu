@@ -12,7 +12,7 @@ class SurveyResponseSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             SurveyResponse::create([
                 'guest_id' => null,
-                'gender' => ['Laki-laki', 'Perempuan'][rand(0,2)],
+                'gender' => ['Laki-laki', 'Perempuan'][rand(0,1)],
                 'age_group' => ['<20', '21-30', '31-40', '41-50', '>'][rand(0,4)],
                 'purposes' => json_encode(['Pelayanan PTSP', 'Konsultasi', 'Pengajuan dokumen', 'Koordinasi/rapat', 'Lainnya'][rand(0,4)]),
                 'purpose_other' => rand(0,4) == 4 ? 'Keperluan lain ' . $i : null,
