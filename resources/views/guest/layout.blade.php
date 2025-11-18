@@ -156,12 +156,51 @@
             height: 80px;
             display: flex;
             align-items: center;
+
+        /* Compact header used across guest pages */
+        .compact-header {
+            background: linear-gradient(135deg, #1e7e34, #28a745);
+            padding: 0.75rem 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-text h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+
+        .header-text span {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
             justify-content: center;
             margin: 0 auto 1rem;
         }
 
         .icon-feature i {
             font-size: 2rem;
+        }
+
+        /* Header logo sizing (responsive) */
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 10px;
         }
 
         .required {
@@ -171,6 +210,11 @@
         @media (max-width: 768px) {
             .welcome-section {
                 display: none;
+            }
+
+            .header-logo {
+                width: 45px;
+                height: 45px;
             }
 
             .form-header h1 {
@@ -237,6 +281,11 @@
                 width: 100%;
                 padding: 12px;
                 min-height: 48px;
+            }
+
+            .header-logo {
+                width: 40px;
+                height: 40px;
             }
 
             /* Safe area for notched devices */

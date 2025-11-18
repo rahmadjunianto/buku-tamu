@@ -19,6 +19,10 @@ Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('g
 Route::post('/guest/store', [App\Http\Controllers\GuestController::class, 'store'])->name('guest.store');
 Route::get('/guest/success/{id}', [App\Http\Controllers\GuestController::class, 'success'])->name('guest.success')
     ->where('id', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
+// Survey routes (guest-facing)
+Route::get('/survey/{guest?}', [App\Http\Controllers\SurveyController::class, 'create'])->name('survey.create');
+Route::post('/survey', [App\Http\Controllers\SurveyController::class, 'store'])->name('survey.store');
+Route::get('/survey-thanks', [App\Http\Controllers\SurveyController::class, 'thanks'])->name('survey.thanks');
 Route::get('/checkout/{id}', [App\Http\Controllers\GuestController::class, 'checkout'])->name('guest.checkout')
     ->where('id', '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}');
 
