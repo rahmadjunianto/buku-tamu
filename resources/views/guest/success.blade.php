@@ -564,7 +564,7 @@ body {
 
     .action-buttons {
         gap: 18px;
-        margin: 30px 0 25px;
+        margin: 0px 0 25px;
     }
 
     .notice {
