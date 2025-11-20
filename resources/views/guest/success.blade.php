@@ -470,6 +470,11 @@ body {
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+    body, .single-page-wrapper {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        height: auto !important;
+    }
     .compact-header {
         padding: 0 15px;
     }
