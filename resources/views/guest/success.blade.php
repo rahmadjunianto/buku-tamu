@@ -557,6 +557,10 @@ body {
         min-height: 56px;
         border-radius: 14px;
     }
+    .btn-survey {
+        width: 100%;
+        display: block;
+    }
 
     .action-buttons {
         gap: 18px;
