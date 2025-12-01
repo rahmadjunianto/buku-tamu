@@ -464,7 +464,7 @@
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> --}}
-<script>
+{{-- <script>
 $(function () {
     // Enable tooltips
     $('[data-toggle="tooltip"]').tooltip();
@@ -560,5 +560,5 @@ $(function () {
     //     console.error('Chart render error:', e);
     // }
 });
-</script>
+</script> --}}
 @stop
